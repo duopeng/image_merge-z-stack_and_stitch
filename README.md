@@ -13,7 +13,7 @@
 This example have two mosquito midguts (entities), and each gut has two microscope views (regions),and each region has 2 z-stacks.  
 ![alt text](https://github.com/duopeng/image_merge-z-stack_and_stitch/blob/main/metadata.screenshot.jpg?raw=true)
 
-(4) Prepare a folder containing images with names specificed by the metadata.  
+(4) Prepare a folder containing images with names specified by the metadata.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The folder "example_images" has all the images specified in the example metadata
 
 (5) Run the python script (tested with python 3.8 and pandas 1.3.3)  

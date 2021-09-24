@@ -1,9 +1,0 @@
-File_name	entity	region
-IMG_0001.jpg	gut1	r1
-IMG_0002.jpg	gut1	r1
-IMG_0003.jpg	gut1	r2
-IMG_0004.jpg	gut1	r2
-IMG_0005.tif	gut2	r1
-IMG_0006.tif	gut2	r1
-IMG_0007.tif	gut2	r2
-IMG_0008.tif	gut2	r2

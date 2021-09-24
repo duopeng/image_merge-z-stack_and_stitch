@@ -4,6 +4,7 @@ import linecache
 import os
 import shutil
 import subprocess
+import pandas as pd
 
 class MyParser(argparse.ArgumentParser):
     def error(self, message):
@@ -13,8 +14,9 @@ class MyParser(argparse.ArgumentParser):
 
 def parse_args():
     parser= MyParser(description='This script does XXX')
-    parser.add_argument('--dir', default="", type=str)
-    parser.add_argument('--list', default="", type=str)
+    parser.add_argument('--dir', default="", type=str, help="path to a directory containing images")
+    parser.add_argument('--excelfile', default="", type=str, help="excel file containing metadata, see github repo for details")
+    parser.add_argument('--IJpath', default="", type=str, help="path to ImageJ executables")
     config = parser.parse_args()
     if len(sys.argv)==1: # print help message if arguments are not valid
         parser.print_help()
@@ -29,35 +31,38 @@ config = vars(parse_args())
 def main():
     try: 
         dirname = config['dir']
-        filename = config['list']
+        excelfile = config['excelfile']
+        IJpath = config['IJpath']
+
+        if not(excelfile.endswith("xlsx") or excelfile.endswith("xls")):
+            sys.exit(f"Fatal error: {excelfile} is not an excel file")
+        else:
+            df = pd.read_excel(excelfile)
 
         #organize picture into folder stuctures
-        with open(filename, "r") as filehandle:
-            next(filehandle) #skip header
-            for line in filehandle:
-                filename = line.split("\t")[0].rstrip()
-                gutname = line.split("\t")[1].rstrip()
-                region = line.split("\t")[2].rstrip()
-                #print(f"{dirname} {filename} {region}")
+        for index, row in df.iterrows():
+            filename = row['File_name']
+            gutname = row['Entity']
+            region = row['Region']
+            #print(f"{dirname} {filename} {region}")
 
+            #create subfolders
+            filepath = os.path.join(dirname,filename)
+            entity_dir_path = os.path.join(dirname,gutname)
+            region_dir_path = os.path.join(dirname,gutname,region)
+            if not os.path.isdir(entity_dir_path): # create subdir with gut name
+                os.mkdir(entity_dir_path) 
+            if not os.path.isdir(region_dir_path): #create subdir with region name
+                os.mkdir(region_dir_path) 
 
-                #create subfolders
-                filepath = os.path.join(dirname,filename)
-                entity_dir_path = os.path.join(dirname,gutname)
-                region_dir_path = os.path.join(dirname,gutname,region)
-                if not os.path.isdir(entity_dir_path): # create subdir with gut name
-                    os.mkdir(entity_dir_path) 
-                if not os.path.isdir(region_dir_path): #create subdir with region name
-                    os.mkdir(region_dir_path) 
-
-                #check file existence and copyfiles to respective gut/region subfolders
-                if os.path.isfile(filepath):
-                    #copy files in to gut/region subfolder
-                    dest_path = os.path.join(region_dir_path,filename)
-                    if not os.path.isfile(dest_path):
-                        shutil.copy2(filepath, dest_path)
-                else:
-                    sys.exit(f"Fatal error: {filename} could not be found in directory {dirname}")
+            #check file existence and copyfiles to respective gut/region subfolders
+            if os.path.isfile(filepath):
+                #copy files in to gut/region subfolder
+                dest_path = os.path.join(region_dir_path,filename)
+                if not os.path.isfile(dest_path):
+                    shutil.copy2(filepath, dest_path)
+            else:
+                sys.exit(f"Fatal error: {filename} could not be found in directory {dirname}")
                 
         #start focus-stitching
         print("")
@@ -71,7 +76,7 @@ def main():
                     region_dir_path = os.path.join(entity_dir_path,region_dir)
                     files = [ name for name in os.listdir(region_dir_path)]
                     file_list = " ".join(files)
-                    focus_cmd = f"cd {region_dir_path} && D:/Fiji.app/ImageJ-win64.exe -macro focusstack.ijm \"{file_list}\""
+                    focus_cmd = f"cd {region_dir_path} && {IJpath} -macro focusstack.ijm \"{file_list}\""
                     subprocess.call(focus_cmd, shell=True)
                     #move stacked img to the gut folder
                     shutil.copy2(os.path.join(region_dir_path,"stack.jpg"), os.path.join(entity_dir_path,f"{region_dir}_stack.jpg"))
@@ -79,10 +84,10 @@ def main():
                     shutil.rmtree(region_dir_path)
                 #stitch 
                 print(f"stiching all regions of {entity_dir}\n")
-                stitch_cmd = f"cd {dirname} && D:/Fiji.app/ImageJ-win64.exe -macro stitch.ijm \"{entity_dir}\""
+                stitch_cmd = f"cd {dirname} && {IJpath} -macro stitch.ijm \"{entity_dir}\""
                 subprocess.call(stitch_cmd, shell=True)
                 #move stitched img to the dir folder
-                shutil.copy2(os.path.join(entity_dir_path,f"{entity_dir}_FocusStitch.jpg"), os.path.join(dirname,f"{entity_dir}_FocusStitch.jpg"))
+                shutil.copy2(os.path.join(entity_dir_path,f"{entity_dir}_FocusStitch.jpg"), os.path.join(f"{entity_dir}_FocusStitch.jpg"))
                 #delete gut folder    
                 shutil.rmtree(entity_dir_path)
                 entity_counter+=1

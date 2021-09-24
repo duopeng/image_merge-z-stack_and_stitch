@@ -18,5 +18,5 @@ This example have two mosquito midguts (entities), and each gut has two microsco
 
 (5) Run the python script (tested with python 3.8 and pandas 1.3.3)  
 &nbsp;&nbsp;&nbsp;&nbsp; python merge-z-stack_and_stitch.py --dir [path to image folder] --excelfile [path to excel file] --IJpath [path to ImageJ excutable]  
-&nbsp;&nbsp; to run the example:  
+&nbsp;&nbsp; to run the example (from the repository folder）:  
 &nbsp;&nbsp;&nbsp;&nbsp; python merge-z-stack_and_stitch.py --dir example_images --excelfile metadata.xlsx --IJpath [path to ImageJ excutable]  

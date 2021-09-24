@@ -16,7 +16,7 @@ This example have two mosquito midguts (entities), and each gut has two microsco
 (4) Prepare a folder containing images with names specificed by the metadata.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The folder "example_images" has all the images specified in the example metadata
 
-(5) Run the python script (need python > 3.8 and pandas)
+(5) Run the python script (need python > 3.8 and pandas)  
 &nbsp;&nbsp;&nbsp;&nbsp; python merge-z-stack_and_stitch.py --dir [path to image folder] --excelfile [path to excel file] --IJpath [path to ImageJ excutable]  
 &nbsp;&nbsp; to run the example:  
 &nbsp;&nbsp;&nbsp;&nbsp; python merge-z-stack_and_stitch.py --dir example_images --excelfile metadata.xlsx --IJpath [path to ImageJ excutable]  

@@ -6,7 +6,7 @@
 ## Instructions:  
 (1) Clone the repository.  
  
-(2) Install ImageJ or Fiji (tested with ImageJ 1.53f51).  
+(2) Install ImageJ or Fiji (tested with ImageJ 1.53f51 downloaded from https://imagej.net/software/fiji/).  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copy the two macro files "focusstack.ijm" and "stitch.ijm" to the "macro" folder in your ImageJ installation folder
 
 (3) Prepare an excel file containing the metadata ( see metadata.xlsx for an example)  

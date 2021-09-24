@@ -11,9 +11,9 @@ run("Quit");
 
 function GridStitch(input_folder, output_folder, output_filename) {
 	run("Grid/Collection stitching", "type=[Unknown position] order=[All files in directory] directory=" + input_folder);
-	wait(100);
+	wait(300);
 	run("Stack to RGB");
-	wait(100);
+	wait(300);
 	//run("8-bit");
 	run("Input/Output...", "jpeg="+100);
 	saveAs("Jpeg", output_folder +"/" + output_filename + "_FocusStitch");

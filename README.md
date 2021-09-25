@@ -20,3 +20,5 @@ This example have two mosquito midguts (entities), and each gut has two microsco
 &nbsp;&nbsp;&nbsp;&nbsp; python merge-z-stack_and_stitch.py --dir [path to image folder] --excelfile [path to excel file] --IJpath [path to ImageJ excutable]  
 &nbsp;&nbsp; to run the example (from the repository folder）:  
 &nbsp;&nbsp;&nbsp;&nbsp; python merge-z-stack_and_stitch.py --dir example_images --excelfile metadata.xlsx --IJpath [path to ImageJ excutable]  
+
+#### Result files will be named :  [Entity prefix]_FocusStitch.jpg

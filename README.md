@@ -16,7 +16,7 @@ This example have two mosquito midguts (entities), and each gut has two microsco
 (4) Prepare a folder containing images with names specified by the metadata.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The folder "example_images" has all the images specified in the example metadata
 
-(5) Run the python script (tested with python 3.8 and pandas 1.3.3)  
+(5) Run the python script  
 &nbsp;&nbsp;&nbsp;&nbsp; Tested with Python=3.7, please install pandas (tested with 1.3.3) and openpyxl  
 
 &nbsp;&nbsp;&nbsp;&nbsp; You can run the python script using the following command:  

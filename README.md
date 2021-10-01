@@ -10,7 +10,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copy the two macro files "focusstack.ijm" and "stitch.ijm" to the "macro" folder in your ImageJ installation folder
 
 (3) Prepare an excel file containing the metadata ( see metadata.xlsx for an example)  
-This example have two mosquito midguts (entities), and each gut has two microscope views (regions),and each region has 2 z-stacks.  
+This example has two mosquito midguts (entities), and each gut has two microscope views (regions),and each region has 2 z-stacks.  
 ![alt text](https://github.com/duopeng/image_merge-z-stack_and_stitch/blob/main/metadata.screenshot.jpg?raw=true)
 
 (4) Prepare a folder containing images with names specified by the metadata.  

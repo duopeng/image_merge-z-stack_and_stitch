@@ -9,7 +9,7 @@ num_open_img=0
 for (i=0; i<file_array.length; i++) {
 	print("opening: " + file_array[i]);
 	run("Bio-Formats Importer", "open=" + file_array[i] + " color_mode=Default");
-	wait(500);
+	wait(800);
 	run("Stack to RGB");
 	wait(500);
 	//open(file_array[i]);
@@ -21,7 +21,7 @@ if (num_open_img>1) //focus stack if more than 1 images are open
 	//z-project
 	 print("opened: " + num_open_img + " images");
 	 run("Images to Stack", "name=Stack title=[] use"); 
-	 wait(300);
+	 wait(500);
 	 run("Z Project...", "start=1 stop="+num_open_img+" projection=[Min Intensity]");
 	 
 	 

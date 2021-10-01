@@ -84,10 +84,18 @@ def main():
                     shutil.rmtree(region_dir_path)
                 #stitch 
                 print(f"stiching all regions of {entity_dir}\n")
-                stitch_cmd = f"cd {dirname} && {IJpath} -macro stitch.ijm \"{entity_dir}\""
-                subprocess.call(stitch_cmd, shell=True)
-                #move stitched img to the dir folder
-                shutil.copy2(os.path.join(entity_dir_path,f"{entity_dir}_FocusStitch.jpg"), os.path.join(f"{entity_dir}_FocusStitch.jpg"))
+                ##check the number of images in the folder
+                file_num = len([name for name in os.listdir(entity_dir_path) if os.path.isfile(os.path.join(entity_dir_path,name))])
+                if file_num == 1:
+                    for thatonefile in os.listdir(entity_dir_path):
+                        shutil.copy2(os.path.join(entity_dir_path,thatonefile), os.path.join(f"{entity_dir}_FocusStitch.jpg"))
+                elif file_num == 0:
+                    sys.exit(f"Fatal error during stitching: There is no focus-merged pictures in {entity_dir}")
+                else:
+                    stitch_cmd = f"cd {dirname} && {IJpath} -macro stitch.ijm \"{entity_dir}\""
+                    subprocess.call(stitch_cmd, shell=True)
+                    #move stitched img to the dir folder
+                    shutil.copy2(os.path.join(entity_dir_path,f"{entity_dir}_FocusStitch.jpg"), os.path.join(f"{entity_dir}_FocusStitch.jpg"))
                 #delete gut folder    
                 shutil.rmtree(entity_dir_path)
                 entity_counter+=1

@@ -3,37 +3,44 @@ args = getArgument;
 file_array=split(args," ");
 //print(unique_prefix);
 
+//set jpeg quality
+run("Input/Output...", "jpeg="+100);
+
 //open all images
 num_open_img=0
 
 for (i=0; i<file_array.length; i++) {
 	print("opening: " + file_array[i]);
 	run("Bio-Formats Importer", "open=" + file_array[i] + " color_mode=Default");
-	wait(1000);
+	wait(800);
 	run("Stack to RGB");
-	wait(400);
+	wait(800);
 	//open(file_array[i]);
 	num_open_img++;
+	wait(800);
 }
 
 if (num_open_img>1) //focus stack if more than 1 images are open
 {
 	//z-project
-	 wait(200);
+	 wait(800);
 	 print("opened: " + num_open_img + " images");
 	 run("Images to Stack", "name=Stack title=[] use"); 
-	 wait(500);
+	 wait(800);
 	 run("Z Project...", "start=1 stop="+num_open_img+" projection=[Min Intensity]");
+	 wait(800);
 	 
 	 
 	//save image
-	run("Input/Output...", "jpeg="+100);
+	run("RGB Color");
+	wait(800);
 	saveAs("Jpeg", "stack"); // This will save into same subdirectory of midgut file 
 	run("Close All"); // Take care that all images are closed 
 }
 else{
 	//save image
-	run("Input/Output...", "jpeg="+100);
+	run("RGB Color");
+	wait(800);
 	saveAs("Jpeg", "stack"); // This will save into same subdirectory of midgut file 
 	run("Close All"); // Take care that all images are closed 
 }
